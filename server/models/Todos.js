@@ -1,10 +1,10 @@
 //import mongoose library
 const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid");
+
 
 //create a todoSchema
 const todoSchema = new mongoose.Schema({
-uuid:           { type: String, default: uuidv4()},
+uuid:           { type: String,  },
 taskName:       { type:String, required: true },
 description:    { type:String },
 completed:      { type:Boolean, required: true},

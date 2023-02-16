@@ -4,5 +4,11 @@ var router = express.Router();
 const todosController = require('../controllers/todosController');
 
 router.post("/create-one",  todosController.createOneTodo);
+router.get("/all", todosController.getAllTodos);
+router.get("/singleTodo/:taskName", todosController.getSingleTodo); 
+router.get("/singleTodoById/:id", todosController.singleTodoById);
+router.put("/updateSingleTodo/:id", todosController.updateSingleTodo);
+router.delete("/deleteSingleTodo/:id", todosController.deleteSingleTodo);
+
 
 module.exports = router;
