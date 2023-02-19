@@ -18,6 +18,5 @@ priority:  { type:Number }
 
 //register model to collection
 const Todo = mongoose.model("todo_items", todoSchema);
-
 //make our model accessible to outside files
 module.exports =  Todo;

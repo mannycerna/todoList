@@ -8,8 +8,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-
+var app = express();
+var legacyMongoClient = require('mongodb-legacy');
 //load environment variables from .env (.env is the default file)
 
 require("dotenv").config();
@@ -27,7 +27,7 @@ var todosRouter = require('./routes/todos');
 // var { mongoConnect } = require('./mongo.js');
 // mongoConnect();
 
-var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
