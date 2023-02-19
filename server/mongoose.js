@@ -9,12 +9,12 @@ mongoose.set('strictQuery', false);
 // Define the database URL to connect to.
 const mongoDB = process.env.ATLAS_URI;
 
-// Wait for database to connect, logging an error if there is a problem 
+// Wait for database to connect, logging an error if there is a problem
 // main().catch(err => console.log(err));
 async function mongooseConnect() {
-  try {
-    await mongoose.connect(mongoDB, {dbName: process.env.DATABASE});
-} catch (error) {
+    try {
+        await mongoose.connect(mongoDB, {dbName: process.env.DATABASE});
+    } catch (error) {
         throw error;
     }
 };

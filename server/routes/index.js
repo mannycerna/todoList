@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require("uuid");
+const {v4: uuidv4} = require("uuid");
 const express = require('express');
 var router = express.Router();
 require('dotenv').config();
@@ -15,8 +15,8 @@ const Todo = require('../models/Todos');
 // next();
 // });
 
-router.get('/', async function(req, res, next) {
-    res.render('index', { title: 'Express' });
+router.get('/', async function (req, res, next) {
+    res.render('index', {title: 'Express'});
 });
 
 // app.use((req, res, next) => {
