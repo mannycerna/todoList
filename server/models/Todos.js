@@ -1,11 +1,13 @@
 // import mongoose library
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require("uuid");
 
 
 // create a todoSchema
 const todoSchema = new mongoose.Schema({
     uuid: {
-        type: String
+        uuid: {type: String, 
+               default: uuidv4()},
     },
     taskName: {
         type: String,
@@ -43,5 +45,6 @@ const todoSchema = new mongoose.Schema({
 
 // register model to collection
 const Todo = mongoose.model("todo_items", todoSchema);
+
 // make our model accessible to outside files
 module.exports = Todo;
