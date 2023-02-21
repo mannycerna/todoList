@@ -3,13 +3,13 @@ const {v4: uuidv4} = require("uuid");
 const {db, insertMany} = require('../models/Todos');
 const {Model} = require('mongoose');
 
-//create a single todo item and save in database
+// create a single todo item and save in database
 async function createOneTodo(req, res) {
 
     try { // parse out fields from POST request
 
-        
-        const new_item = Todo.create({
+
+        let new_item = Todo.create({
             taskName: req.body.taskName,
             description: req.body.description,
             completed: req.body.completed,
@@ -17,6 +17,7 @@ async function createOneTodo(req, res) {
             priority: req.body.priority
 
         })
+
 
         // const updateList = await Todo()
         // // .collection('todo_data')
@@ -42,7 +43,7 @@ async function createOneTodo(req, res) {
         //     priority
         // });
 
-        
+
         // return the request to the user
         // res.json({success: true, todos: newTodo});
         res.json({succes: true, todos: new_item})
@@ -54,7 +55,8 @@ async function createOneTodo(req, res) {
     }
 };
 
-//create a many todo item and save in database
+// create a many todo item and save in database  //https://stackoverflow.com/questions/19701154/mongoose-whats-the-differences-between-model-create-and-collection-inserts
+
 async function createManyTodo(req, res) {
     try {
         const insertedTodo = db.collection('todo_items').insertMany(req.body.todos, function (err, todos) {
@@ -69,11 +71,11 @@ async function createManyTodo(req, res) {
     }
 };
 
-//get all items from database
+// get all items from database
 async function getAllTodos(req, res, next) {
 
     try {
-        const allTodos = await Todo.find({}).select('-__v') //'=__v' hides the version entry in json output
+        const allTodos = await Todo.find({}).select('-__v') // '=__v' hides the version entry in json output
         res.json({success: true, allTodos: allTodos});
     } catch (error) {
         console.log(error);
@@ -82,7 +84,7 @@ async function getAllTodos(req, res, next) {
 
 };
 
-//search and return item from the database by task name
+// search and return item from the database by task name
 async function getSingleTodo(req, res) {
     let singleTodo;
 
@@ -94,7 +96,7 @@ async function getSingleTodo(req, res) {
     res.json({success: true, oneTodo: singleTodo})
 }
 
-//searh by id and return item from database 
+// searh by id and return item from database
 async function singleTodoById(req, res, next) { // checking if the parameter ID was passed in
     if (! req.params.id) {
         res.json({success: false, message: "The blog id must be provided in the url parameters"});
@@ -119,7 +121,7 @@ async function singleTodoById(req, res, next) { // checking if the parameter ID 
     console.log("third");
 };
 
-//search by id and update a single item from database  
+// search by id and update a single item from database
 async function updateSingleTodo(req, res) {
 
     try {
@@ -133,9 +135,11 @@ async function updateSingleTodo(req, res) {
             }
         });
 
-        res.json({success: true, message: `todo entry id ${
+        res.json({
+                success: true, message: `todo entry id ${
                 req.params.id
-            } updated`});
+            } updated`
+        });
     } catch (error) {
         console.log(error);
         throw error;
@@ -143,15 +147,17 @@ async function updateSingleTodo(req, res) {
 
 }
 
-//search by id and delete a single item from database
+// search by id and delete a single item from database
 async function deleteSingleTodo(req, res) {
 
     try {
         await Todo.deleteOne({uuid: req.params.id});
 
-        res.json({success: true, message: `todo entry id ${
+        res.json({
+                success: true, message: `todo entry id ${
                 req.params.id
-            } deleted`})
+            } deleted`
+        })
 
     } catch (error) {
         console.log(error);
@@ -171,16 +177,18 @@ async function updateManyTodo(req, res) {
             }
         });
 
-        res.json({success: true, message: `todo entry id ${
+        res.json({
+                success: true, message: `todo entry id ${
                 req.params.completed
-            } updated`})
+            } updated`
+        })
     } catch (error) {
         console.log(error);
         throw error;
     }
 }
 
-//search for many items based on status of complete in database and delete all documents (records) that match that search crietia rom database
+// search for many items based on status of complete in database and delete all documents (records) that match that search crietia rom database
 async function deleteManyTodo(req, res) {
     try {
         const deleteResults = db.collection('todo_items').deleteMany({"completed": false});
